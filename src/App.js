@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Container } from "react-bootstrap";
+import Header from "./Components/Header/Header";
+import Slider from "./Components/Slider/Slider";
+import Shop from "./Components/Grid/Grid";
+import ItemPage from "./Components/ItemPage/ItemPage";
+import ModalD from "./Components/Modal/Modal";
+import Login from "./Components/Login/Login";
+import SignUp from "./Components/SignUp/SignUp";
+import CartPage from "./Components/Cart/CartPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Header />
+      <Slider />
+      <Shop />
+    </Container>
   );
 }
 
