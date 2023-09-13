@@ -11,7 +11,7 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Container className="d-flex justify-content-between align-items-center">
             <Nav className="mr-auto">
-              <NavDropdown id="dropdown-basic-button" title="Categories">
+              <NavDropdown id="dropdown-basic-button" title="Shop">
                 <NavDropdown.Item>xx in loop</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown id="dropdown-basic-button" title="Our Company">

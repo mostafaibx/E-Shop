@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchCategories } from "../../Store/fetchingAction";
 
 function Categories() {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.products);
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
+  console.log(data.categories);
   return (
     <Container className="mt-4">
       <Tabs
@@ -9,21 +19,21 @@ function Categories() {
         className="mb-3"
         fill
       >
-        <Tab eventKey="home" title="Home">
-          Tab content for Home
-        </Tab>
-        <Tab eventKey="profile" title="Profile">
-          Tab content for Profile
-        </Tab>
-        <Tab eventKey="longer-tab" title="Loooonger Tab">
-          Tab content for Loooonger Tab
-        </Tab>
-        <Tab eventKey="contact" title="Contact">
-          Tab content for Contact
-        </Tab>
+        {data.categories &&
+          data.categories.map((item) => (
+            <Tab eventKey="home" title={`${item}`}>
+              Tab content for xxx
+            </Tab>
+          ))}
       </Tabs>
     </Container>
   );
 }
 
 export default Categories;
+
+export async function loader() {
+  const res = await fetch("https://dummyjson.com/products");
+  const data = res.json();
+  return data;
+}

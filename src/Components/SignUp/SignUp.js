@@ -7,6 +7,7 @@ import {
   Row,
   Button,
 } from "react-bootstrap";
+import Header from "../Header/Header";
 
 function SignUp() {
   return (

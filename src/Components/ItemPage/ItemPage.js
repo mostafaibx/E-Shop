@@ -3,8 +3,14 @@ import dummyImg from "../../assests/item-7.jpg";
 import { Cart, Fav1 } from "../../Icons/Icons";
 import FavMenu from "../FavoriteMenu/FavMenu";
 import Recomm from "../Recommenditions/Recomm";
+import { useNavigate } from "react-router";
 
 function ItemPage() {
+  const navigate = useNavigate();
+  function openProduct() {
+    navigate("/product");
+  }
+
   return (
     <Container className=" m-4">
       <div className="d-flex m-4">

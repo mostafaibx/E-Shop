@@ -1,0 +1,17 @@
+.custom-container {
+  height: 300px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  color: white;
+}
+
+.count-down {
+  color: white;
+}
+.count-down div {
+  width: 100px;
+  text-align: center;
+}
