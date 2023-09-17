@@ -1,0 +1,6 @@
+.recomm {
+  overflow-x: scroll;
+}
+.recomm::-webkit-scrollbar {
+  display: none;
+}

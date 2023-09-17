@@ -2,13 +2,14 @@ import "./App.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home";
-import ItemPage from "./Components/ItemPage/ItemPage";
+import ItemPage from "./Pages/ItemPage/ItemPage";
 import SignUp from "./Components/SignUp/SignUp";
 import Login from "./Components/Login/Login";
 import RootLayout from "./Pages/RootLayout";
 import ErrorPage from "./Pages/ErrorPage";
-import { loader as productsLoader } from "./Components/Grid/Grid";
-import { loader as categoriesLoader } from "./Components/Grid/Categories";
+import ProductsPage from "./Pages/ProductsPage";
+import SearchResult from "./Pages/SearchResultPage";
+import CartPage from "./Components/Cart/CartPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,9 +22,12 @@ function App() {
           index: true,
           element: <Home />,
         },
-        { path: "/product/:productId", element: <ItemPage /> },
+        { path: "/products/category/:catId", element: <ProductsPage /> },
+        { path: "/products/:productId", element: <ItemPage /> },
+        { path: "/Search/:searchText", element: <SearchResult /> },
         { path: "/login", element: <Login /> },
         { path: "/signup", element: <SignUp /> },
+        { path: "/your-cart", element: <CartPage /> },
       ],
     },
   ]);

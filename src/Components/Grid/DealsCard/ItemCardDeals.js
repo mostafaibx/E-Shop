@@ -1,5 +1,5 @@
 import { Card, Button } from "react-bootstrap";
-import dummyImg from "../../assests/item-10.jpg";
+import dummyImg from "../../../assests/item-10.jpg";
 import "./ItemCardDeals.css";
 import { useNavigate } from "react-router";
 

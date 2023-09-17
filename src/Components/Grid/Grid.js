@@ -1,36 +1,35 @@
 import { Row, Col, Container } from "react-bootstrap";
-import ItemCard from "./ItemCard";
-import Categories from "./Categories";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchProducts } from "../../Store/fetchingAction";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCategories, fetchProducts } from "../../Store/fetchingAction";
+import ItemCard from "./ItemCard/ItemCard";
+import Categories from "./CategoriesBar/Categories";
+import PageNumber from "./Pagination";
+import Search from "./Search/Search";
 
-function Shop() {
+function Shop(props) {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.products);
+  const defData = useSelector((state) => state.products.products);
+  const data = props.products ?? defData;
+
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchCategories());
   }, []);
 
   return (
     <Container>
+      <Search />
       <Categories />
       <Row>
-        {data.products.products &&
-          data.products.products.map((item) => (
-            <Col md={4} className="mt-4">
-              <ItemCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                desc={item.description}
-                price={item.price}
-                imgUrl={item.images}
-              />
+        {data.products &&
+          data.products.map((item) => (
+            <Col key={item.id} md={4} sm={6} className="mt-4">
+              <ItemCard id={item.id} item={item} />
             </Col>
           ))}
       </Row>
+      <PageNumber />
     </Container>
   );
 }

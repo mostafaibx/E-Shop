@@ -1,13 +1,43 @@
 import { NavDropdown, Navbar, Container, Button, Nav } from "react-bootstrap";
 import UserIcon from "./UserIcon/UserIcon";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { setCurrentUser, setIsLogin } from "../../Store/AuthSlice";
 
 function Header() {
   //Import Login Context to show login or header icon conditionally based on isLoggedIn value
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.loadingerror.isLoading);
+  const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  function openLogin() {
+    navigate("/login");
+  }
+  function openSignup() {
+    navigate("/signup");
+  }
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      console.log(user);
+      if (user) {
+        dispatch(setCurrentUser(user));
+        dispatch(setIsLogin(true));
+      } else {
+        dispatch(setCurrentUser(user));
+        dispatch(setIsLogin(false));
+      }
+    });
+  }, [dispatch]);
 
   return (
-    <Navbar expand="lg" bg="light" fixed="top">
+    <Navbar expand="lg" bg="light">
       <Container className="d-flex justify-content-between">
-        <Navbar.Brand href="#home">E-Shop</Navbar.Brand>
+        <Navbar.Brand href="/">E-Shop</Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Container className="d-flex justify-content-between align-items-center">
             <Nav className="mr-auto">
@@ -20,15 +50,22 @@ function Header() {
                 <NavDropdown.Item>About us</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-
-            <div>
-              <Button className="mx-2" variant="primary">
-                Get Started
-              </Button>
-              <Button className="mx-2" variant="secondary">
-                Sign In
-              </Button>
-            </div>
+            {isLoading && <div>Loading</div>}
+            {auth.isLogin && (
+              <div>
+                <Button className="mx-2" variant="primary" onClick={openSignup}>
+                  Sign Up
+                </Button>
+                <Button
+                  className="mx-2"
+                  variant="secondary"
+                  onClick={openLogin}
+                >
+                  Sign In
+                </Button>
+              </div>
+            )}
+            {!auth.isLogin && <UserIcon />}
           </Container>
         </Navbar.Collapse>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

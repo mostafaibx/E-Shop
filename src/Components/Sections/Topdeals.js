@@ -1,5 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import ItemCardDeals from "../Grid/ItemCardDeals";
+import ItemCardDeals from "../Grid/DealsCard/ItemCardDeals";
 
 function DealsSection() {
   return (

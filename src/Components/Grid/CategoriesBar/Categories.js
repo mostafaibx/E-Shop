@@ -1,31 +1,34 @@
 import { useEffect } from "react";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import { Container, Tab, Tabs, Nav } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchCategories } from "../../Store/fetchingAction";
+import { fetchCategories } from "../../../Store/fetchingAction";
+import { useNavigate, useParams } from "react-router";
 
 function Categories() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.products);
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
-  console.log(data.categories);
+
+  function selectedCategory(event) {
+    navigate(`/products/category/${event.target.id}`);
+  }
+
   return (
     <Container className="mt-4">
-      <Tabs
-        defaultActiveKey="profile"
-        id="fill-tab-example"
-        className="mb-3"
-        fill
-      >
+      <Nav fill variant="tabs" className="">
         {data.categories &&
           data.categories.map((item) => (
-            <Tab eventKey="home" title={`${item}`}>
-              Tab content for xxx
-            </Tab>
+            <Nav.Item key={item}>
+              <Nav.Link id={item} onClick={selectedCategory}>
+                {item}
+              </Nav.Link>
+            </Nav.Item>
           ))}
-      </Tabs>
+      </Nav>
     </Container>
   );
 }

@@ -1,17 +1,13 @@
 import { Carousel, Image, Container } from "react-bootstrap";
 import "./Slider.css";
-import dummyImg from "../../assests/Banner for e commerce website 1.jpg";
-import dummyImg2 from "../../assests/Banner for e commerce website 2.jpg";
-import dummyImg3 from "../../assests/Banner for e commerce website 3.jpg";
+import dummyImg from "../../../assests/Banner for e commerce website 1.jpg";
+import dummyImg2 from "../../../assests/Banner for e commerce website 2.jpg";
+import dummyImg3 from "../../../assests/Banner for e commerce website 3.jpg";
 
 function Slider() {
   return (
     <Container>
-      <Carousel
-        fade
-        variant="dark"
-        className="d-sm-none d-md-none d-lg-block d-xl-block"
-      >
+      <Carousel fade variant="dark" className="d-md-block d-none">
         <Carousel.Item>
           <Image src={dummyImg} alt="shoes"></Image>
           <Carousel.Caption>

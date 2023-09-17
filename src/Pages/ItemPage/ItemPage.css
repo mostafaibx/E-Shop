@@ -1,0 +1,11 @@
+.product-text {
+  color: black;
+  font-size: larger;
+}
+.product-text span {
+  font-weight: 600;
+}
+
+.rate {
+  width: fit-content;
+}

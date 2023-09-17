@@ -1,0 +1,15 @@
+.small-img img {
+  max-width: 100%;
+  opacity: 0.75;
+}
+.small-img img:hover {
+  opacity: 1;
+}
+
+.main-container {
+  max-width: 100px;
+}
+
+.cataloge {
+  width: 100px;
+}
