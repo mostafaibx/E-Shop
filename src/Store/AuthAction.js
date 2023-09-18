@@ -6,15 +6,17 @@ import {
   signOut,
   updateProfile,
   browserLocalPersistence,
+  onAuthStateChanged,
 } from "firebase/auth";
-import { setIsLogin } from "./AuthSlice";
+import { setCurrentUser, setIsLogin } from "./AuthSlice";
 import { setError, setIsLoading } from "./Loading-ErrorSlice";
+import { redirect } from "react-router-dom";
 
 export const signupAction = (signupCred) => {
   return async (dispatch) => {
     //validation of inputs
     // NOT SURE TO USE CHAINED IF ELSE OR INDPENDENT IF STATMENTS
-    dispatch(setIsLogin(true));
+    dispatch(setIsLoading(true));
     if (signupCred.username.trim().length === 0) {
       dispatch(setError("Please Enter a Username"));
       return;
@@ -52,13 +54,14 @@ export const signupAction = (signupCred) => {
       }
     } finally {
       dispatch(setIsLoading(false));
+      redirect("/");
     }
   };
 };
 
 export const loginAction = (loginCred) => {
   return async (dispatch) => {
-    dispatch(setIsLogin(true));
+    dispatch(setIsLoading(true));
 
     if (loginCred.email.trim().length === 0) {
       dispatch(setError("Please Enter your Email."));
@@ -85,6 +88,22 @@ export const loginAction = (loginCred) => {
           dispatch(setError("Invalid Login Credentials."));
       }
     } finally {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          dispatch(
+            setCurrentUser({
+              uid: user.uid,
+              email: user.email,
+              username: user.displayName,
+            })
+          );
+          dispatch(setIsLogin(true));
+          redirect("/");
+        } else {
+          dispatch(setCurrentUser(user));
+          dispatch(setIsLogin(false));
+        }
+      });
       dispatch(setIsLoading(false));
     }
   };
@@ -92,7 +111,7 @@ export const loginAction = (loginCred) => {
 
 export const logoutAction = () => {
   return async (dispatch) => {
-    dispatch(setIsLogin(true));
+    dispatch(setIsLoading(true));
 
     const auth = getAuth();
     try {
@@ -101,6 +120,7 @@ export const logoutAction = () => {
       console.log(error);
     } finally {
       dispatch(setIsLoading(false));
+      redirect("/");
     }
   };
 };

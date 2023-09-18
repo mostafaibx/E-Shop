@@ -8,7 +8,10 @@ import { store } from "./Store/Store";
 import "bootstrap/dist/css/bootstrap.css";
 
 import { initializeApp } from "firebase/app";
+import { PersistGate } from "redux-persist/integration/react";
+import pers from "./Store/configureStore";
 
+const { persistor } = pers();
 const firebaseConfig = {
   apiKey: "AIzaSyDYRpOMlTh3lGusV4spe7oFUyUXqzwvY0w",
   authDomain: "e-shop-583c7.firebaseapp.com",
@@ -23,7 +26,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

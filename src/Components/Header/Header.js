@@ -21,11 +21,17 @@ function Header() {
   }
 
   useEffect(() => {
+    // adding this listenr on header until i can setup redux-persist
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
       if (user) {
-        dispatch(setCurrentUser(user));
+        dispatch(
+          setCurrentUser({
+            uid: user.uid,
+            email: user.email,
+            username: user.displayName,
+          })
+        );
         dispatch(setIsLogin(true));
       } else {
         dispatch(setCurrentUser(user));
@@ -50,8 +56,7 @@ function Header() {
                 <NavDropdown.Item>About us</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            {isLoading && <div>Loading</div>}
-            {auth.isLogin && (
+            {!auth.isLogin && (
               <div>
                 <Button className="mx-2" variant="primary" onClick={openSignup}>
                   Sign Up
@@ -65,7 +70,7 @@ function Header() {
                 </Button>
               </div>
             )}
-            {!auth.isLogin && <UserIcon />}
+            {auth.isLogin && <UserIcon />}
           </Container>
         </Navbar.Collapse>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -1,19 +1,22 @@
 import { getAuth } from "firebase/auth";
 import { get, getDatabase, onValue, ref, remove, set } from "firebase/database";
-import { getCartItems, removeFromCart, setIsAdded } from "./CartSlice";
-import { setIsLoading } from "./Loading-ErrorSlice";
+import { setIsLoading } from "../Loading-ErrorSlice";
+import { getFavItems } from "./FavSlice";
+import { setIsAdded } from "../CartSlice";
 
-export const addToCartAction = (item) => {
+export const addToFavAction = (item) => {
   return async (dispatch) => {
     const auth = getAuth();
-    const db = getDatabase();
     const userId = auth.currentUser.uid;
+    console.log(item);
+    const db = getDatabase();
+
     if (!userId) {
       console.log("please login");
     } else {
-      const userCartRef = ref(db, `users/${userId}/cart/`);
+      const userFavRef = ref(db, `users/${userId}/fav/`);
 
-      const existingSnapshot = await get(userCartRef);
+      const existingSnapshot = await get(userFavRef);
       const existingItems = existingSnapshot.val() || {};
 
       if (!existingItems.items) {
@@ -21,14 +24,13 @@ export const addToCartAction = (item) => {
       }
       existingItems.items[item.id] = item;
 
-      set(userCartRef, existingItems);
-
+      set(userFavRef, existingItems);
       dispatch(setIsAdded(true));
     }
   };
 };
 
-export const getCartItemsAction = () => {
+export const getFavItemsAction = () => {
   return async function (dispatch) {
     dispatch(setIsLoading(true));
     const auth = getAuth();
@@ -39,23 +41,23 @@ export const getCartItemsAction = () => {
       return;
     }
     const db = getDatabase();
-    const cartRef = ref(db, `users/${userId}/cart/items/`);
-    onValue(cartRef, (snapshot) => {
-      const cart = snapshot.val();
-      dispatch(getCartItems(cart));
-      dispatch(setIsLoading(false));
+    const userFavRef = ref(db, `users/${userId}/fav/items/`);
+    onValue(userFavRef, (snapshot) => {
+      const fav = snapshot.val();
+      dispatch(getFavItems(fav));
+      dispatch(setIsLoading(true));
     });
   };
 };
 
-export const removeCartItemsAction = (itemId) => {
+export const removeFavItemsAction = (itemId) => {
   return async function (dispatch) {
     const db = getDatabase();
     const auth = getAuth();
     const userId = auth.currentUser.uid;
 
-    const itemRef = ref(db, `users/${userId}/cart/items/${itemId}`);
+    const itemRef = ref(db, `users/${userId}/fav/items/${itemId}`);
     await remove(itemRef);
-    await dispatch(getCartItemsAction());
+    await dispatch(getFavItemsAction());
   };
 };

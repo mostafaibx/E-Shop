@@ -23,15 +23,24 @@ function PageNumber() {
   }
   useEffect(() => {
     dispatch(fetchProducts(page));
+    console.log(page);
   }, [page]);
 
   return (
     <Container className="d-flex justify-content-center">
       <ButtonGroup aria-label="Basic example">
-        <Button variant="secondary" onClick={prevPage}>
+        <Button
+          variant={page < 1 ? "secondary" : "primary"}
+          disabled={page < 1 ? true : false}
+          onClick={prevPage}
+        >
           Prev.
         </Button>
-        <Button variant="secondary" onClick={nextPage}>
+        <Button
+          variant={page === 90 ? "secondary" : "primary"}
+          onClick={nextPage}
+          disabled={page === 90 ? true : false}
+        >
           Next
         </Button>
       </ButtonGroup>

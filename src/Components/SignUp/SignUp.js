@@ -11,6 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { signupAction } from "../../Store/AuthAction";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const loadingerror = useSelector((state) => state.loadingerror);
@@ -151,7 +152,7 @@ function SignUp() {
           </Form>
           <div className="d-flex justify-content-center mt-4">
             <p>
-              Do you Already have an account? <a href="/login">Login</a>
+              Do you Already have an account? <Link to="/login">Login</Link>
             </p>
           </div>
         </Card.Body>

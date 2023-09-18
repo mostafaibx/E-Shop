@@ -3,14 +3,13 @@ import { Cart, Fav1 } from "../../../Icons/Icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCartAction } from "../../../Store/CartAction";
+import { addToFavAction } from "../../../Store/Fav/FavActions";
 
 function ItemCard(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   function openProduct() {
-    /*     //getting selected object from the array we fetched and pass it to the item page
-    //we can use this approach to reduce the api calls
-    dispatch(selectProduct(props.item)); */
     navigate(`/products/${props.item.id}`);
   }
 
@@ -20,12 +19,13 @@ function ItemCard(props) {
   }
   function addtoFavHandler(event) {
     event.stopPropagation();
+    dispatch(addToFavAction(props.item));
   }
 
   return (
     <Card
       key={props.item.id}
-      className="shadow-sm p-3 mb-5 bg-body rounded"
+      className="shadow-sm p-3 mb-5 mx-1 bg-body rounded"
       onClick={openProduct}
     >
       <div style={{ overflow: "hidden" }}>

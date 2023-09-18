@@ -3,6 +3,7 @@ import fetchingReducer from "./fetchingProductsSlice";
 import LoadingErrorReducer from "./Loading-ErrorSlice";
 import authReducer from "./AuthSlice";
 import cartReducer from "./CartSlice";
+import favReduer from "./Fav/FavSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     loadingerror: LoadingErrorReducer,
     auth: authReducer,
     cart: cartReducer,
+    fav: favReduer,
   },
 });

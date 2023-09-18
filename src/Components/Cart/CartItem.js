@@ -1,11 +1,11 @@
 import { ListGroup, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../../Store/CartSlice";
+import { removeCartItemsAction } from "../../Store/CartAction";
 
 function CartItem(props) {
   const dispatch = useDispatch();
   function removeHandler() {
-    dispatch(removeFromCart(props.item.id));
+    dispatch(removeCartItemsAction(props.item.id));
   }
   return (
     <ListGroup className="mt-2">
