@@ -1,4 +1,4 @@
-import { Image } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 import "./ImageCatalog.css";
 import { useEffect, useState } from "react";
 
@@ -15,22 +15,29 @@ function ImageCatalog(props) {
     setSelectedImage(img);
   }
   return (
-    <div className="d-flex flex-column flex-md-row">
-      <div className="d-flex m-0 mt-4 main-container">
-        <div className="small-img d-flex flex-row flex-md-column  ">
+    <Row>
+      <Col xs={2} sm={2} md={2} lg={2} xl={2}>
+        <div className="d-flex flex-column">
           {props.images &&
             props.images.map((img) => (
               <Image
                 thumbnail
                 src={img}
-                alt="ddd"
+                alt="cataloge"
                 onClick={() => switchHandler(img)}
               ></Image>
             ))}
         </div>
-      </div>
-      <Image className="" src={selectedImage} alt="ee"></Image>
-    </div>
+      </Col>
+      <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+        <Image
+          className=""
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          src={selectedImage}
+          alt="ee"
+        ></Image>
+      </Col>
+    </Row>
   );
 }
 export default ImageCatalog;

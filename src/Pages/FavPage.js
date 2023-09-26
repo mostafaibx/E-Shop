@@ -11,12 +11,13 @@ function FavPage() {
   useEffect(() => {
     dispatch(getFavItemsAction());
   }, [dispatch]);
-  console.log(favItems);
+
   return (
     <Container className="m-4 p-4">
       <h1 className="mb-4">Your Favorites:</h1>
       <Container className="m-4 p-4 d-flex justify-contnet-around">
-        {favItems && favItems.map((item) => <ItemCard item={item} />)}
+        {favItems &&
+          Object.values(favItems).map((item) => <ItemCard item={item} />)}
       </Container>
     </Container>
   );

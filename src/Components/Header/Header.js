@@ -8,20 +8,20 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser, setIsLogin } from "../../Store/AuthSlice";
 
 function Header() {
-  //Import Login Context to show login or header icon conditionally based on isLoggedIn value
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.loadingerror.isLoading);
   const auth = useSelector((state) => state.auth);
+  const categories = useSelector((state) => state.products.categories);
+
   const navigate = useNavigate();
   function openLogin() {
     navigate("/login");
   }
+
   function openSignup() {
     navigate("/signup");
   }
 
   useEffect(() => {
-    // adding this listenr on header until i can setup redux-persist
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -40,6 +40,10 @@ function Header() {
     });
   }, [dispatch]);
 
+  function selectedCategory(event) {
+    navigate(`/products/category/${event.target.id}`);
+  }
+
   return (
     <Navbar expand="lg" bg="light">
       <Container className="d-flex justify-content-between">
@@ -48,12 +52,14 @@ function Header() {
           <Container className="d-flex justify-content-between align-items-center">
             <Nav className="mr-auto">
               <NavDropdown id="dropdown-basic-button" title="Shop">
-                <NavDropdown.Item>xx in loop</NavDropdown.Item>
+                {categories.map((item) => (
+                  <NavDropdown.Item id={item} onClick={selectedCategory}>
+                    {item}
+                  </NavDropdown.Item>
+                ))}
               </NavDropdown>
               <NavDropdown id="dropdown-basic-button" title="Our Company">
-                <NavDropdown.Item>About us</NavDropdown.Item>
-                <NavDropdown.Item>About us</NavDropdown.Item>
-                <NavDropdown.Item>About us</NavDropdown.Item>
+                <NavDropdown.Item>About Us</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             {!auth.isLogin && (

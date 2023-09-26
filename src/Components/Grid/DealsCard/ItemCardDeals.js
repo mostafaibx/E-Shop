@@ -1,12 +1,12 @@
 import { Card, Button } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import dummyImg from "../../../assests/item-10.jpg";
 import "./ItemCardDeals.css";
-import { useNavigate } from "react-router";
 
 function ItemCardDeals() {
   const navigate = useNavigate();
   function openProduct() {
-    navigate("product/test");
+    navigate("/");
   }
 
   return (

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  products: [1, 2],
-  categories: [1, 2],
-  selectedProduct: [1, 2],
-  productsofCategory: [1, 2],
-  searchResult: [1, 2],
+  products: {},
+  categories: [],
+  selectedProduct: {},
+  productsofCategory: [],
+  searchResult: [],
 };
 
 const fetchingSlice = createSlice({

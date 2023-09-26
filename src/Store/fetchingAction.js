@@ -45,43 +45,13 @@ export const fetchCategories = () => {
 };
 export const fetchSelectedCategory = (category) => {
   return async (dispatch) => {
-    /*     const url = `https://dummyjson.com/products/category/${category}`;
-    await fetchApiData(dispatch, url, productsofCategory); */
-    try {
-      dispatch(setIsLoading(true));
-      const res = await fetch(
-        `https://dummyjson.com/products/category/${category}`
-      );
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status} - ${res.statusText}`);
-      }
-      const data = await res.json();
-      dispatch(productsofCategory(data));
-    } catch (error) {
-      dispatch(setError(error.message));
-    } finally {
-      dispatch(setIsLoading(false));
-    }
+    const url = `https://dummyjson.com/products/category/${category}`;
+    await fetchApiData(dispatch, url, productsofCategory);
   };
 };
 export const fetchSearchResult = (searchText) => {
   return async (dispatch) => {
     const url = `https://dummyjson.com/products/search?q=${searchText}`;
     await fetchApiData(dispatch, url, searching);
-    /*     try {
-      dispatch(setIsLoading(true));
-      const res = await fetch(
-        `https://dummyjson.com/products/search?q=${searchText}`
-      );
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status} - ${res.statusText}`);
-      }
-      const data = await res.json();
-      dispatch(searching(data));
-    } catch (error) {
-      dispatch(setError(error.message));
-    } finally {
-      dispatch(setIsLoading(false));
-    } */
   };
 };

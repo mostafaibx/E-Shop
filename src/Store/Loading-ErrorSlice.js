@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
-  err: "err",
+  err: "",
 };
 
 const LoadingErrorSlice = createSlice({

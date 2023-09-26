@@ -6,6 +6,7 @@ import ItemCard from "./ItemCard/ItemCard";
 import Categories from "./CategoriesBar/Categories";
 import PageNumber from "./Pagination";
 import Search from "./Search/Search";
+import { getFavItemsAction } from "../../Store/Fav/FavActions";
 
 function Shop(props) {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function Shop(props) {
 
   useEffect(() => {
     dispatch(fetchProducts());
-    dispatch(fetchCategories());
+    dispatch(getFavItemsAction());
   }, []);
 
   return (
@@ -24,7 +25,15 @@ function Shop(props) {
       <Row>
         {data.products &&
           data.products.map((item) => (
-            <Col key={item.id} md={4} sm={6} className="mt-4">
+            <Col
+              key={item.id}
+              xl={3}
+              lg={4}
+              md={6}
+              sm={6}
+              xs={12}
+              className="mt-4 "
+            >
               <ItemCard id={item.id} item={item} />
             </Col>
           ))}

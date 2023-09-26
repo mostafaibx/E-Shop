@@ -1,14 +1,15 @@
 import { useEffect } from "react";
-import { Container, Tab, Tabs, Nav } from "react-bootstrap";
+import { Container, Nav } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchCategories } from "../../../Store/fetchingAction";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 function Categories() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.products);
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
@@ -34,9 +35,3 @@ function Categories() {
 }
 
 export default Categories;
-
-export async function loader() {
-  const res = await fetch("https://dummyjson.com/products");
-  const data = res.json();
-  return data;
-}

@@ -1,0 +1,25 @@
+.order-header {
+  position: relative;
+}
+
+.order-header::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  border: 1px solid rgb(214, 214, 214);
+  width: 100%;
+}
+
+.total-cost {
+  position: relative;
+}
+
+.total-cost::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0px;
+  border: 1px solid rgb(214, 214, 214);
+  width: 100%;
+}

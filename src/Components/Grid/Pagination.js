@@ -23,7 +23,6 @@ function PageNumber() {
   }
   useEffect(() => {
     dispatch(fetchProducts(page));
-    console.log(page);
   }, [page]);
 
   return (

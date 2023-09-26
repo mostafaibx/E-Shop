@@ -9,13 +9,14 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { setCurrentUser, setIsLogin } from "./AuthSlice";
+import { setnotification } from "./notificationsSlice";
 import { setError, setIsLoading } from "./Loading-ErrorSlice";
 import { redirect } from "react-router-dom";
+import { setIsAdded } from "./CartSlice";
 
 export const signupAction = (signupCred) => {
   return async (dispatch) => {
     //validation of inputs
-    // NOT SURE TO USE CHAINED IF ELSE OR INDPENDENT IF STATMENTS
     dispatch(setIsLoading(true));
     if (signupCred.username.trim().length === 0) {
       dispatch(setError("Please Enter a Username"));
@@ -53,6 +54,13 @@ export const signupAction = (signupCred) => {
           dispatch(setError("This Email is Already in Use."));
       }
     } finally {
+      dispatch(setIsAdded(true));
+      dispatch(
+        setnotification({
+          title: "notification",
+          msg: "You are Signed up successfully!",
+        })
+      );
       dispatch(setIsLoading(false));
       redirect("/");
     }
@@ -78,7 +86,6 @@ export const loginAction = (loginCred) => {
       await signInWithEmailAndPassword(auth, loginCred.email, loginCred.pw);
     } catch (error) {
       const errorCode = error.code;
-      //need to check updated docs to see what changed about responses of invalid cred
       switch (errorCode) {
         case "auth/user-not-found":
           dispatch(setError("Your Email is Invalid."));
@@ -104,6 +111,13 @@ export const loginAction = (loginCred) => {
           dispatch(setIsLogin(false));
         }
       });
+      dispatch(setIsAdded(true));
+      dispatch(
+        setnotification({
+          title: "notification",
+          msg: "You are logged in successfully!",
+        })
+      );
       dispatch(setIsLoading(false));
     }
   };
@@ -119,6 +133,20 @@ export const logoutAction = () => {
     } catch (error) {
       console.log(error);
     } finally {
+      dispatch(setIsAdded(true));
+      dispatch(
+        setnotification({
+          title: "notification",
+          msg: "Item is removed successfully",
+        })
+      );
+      dispatch(setIsAdded(true));
+      dispatch(
+        setnotification({
+          title: "notification",
+          msg: "Now you are Logged out!",
+        })
+      );
       dispatch(setIsLoading(false));
       redirect("/");
     }

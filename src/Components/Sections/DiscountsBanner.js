@@ -1,6 +1,7 @@
 import { Button, Container } from "react-bootstrap";
 import "./DiscountsBanner.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function DiscountBanner() {
   const [countDown, setCountDown] = useState({
@@ -41,7 +42,11 @@ function DiscountBanner() {
       <div className="text p-3">
         <h1>LAST CHANCE SALE!!</h1>
         <p>Unbeatable deals on everything you need to crush your goals.</p>
-        <Button>Shop NOW</Button>
+        <Button>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            Shop NOW
+          </Link>
+        </Button>
       </div>
       <div className="count-down border-top d-flex mx-4 ">
         <div className="day border-end mt-3">
