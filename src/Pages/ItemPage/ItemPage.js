@@ -8,6 +8,8 @@ import { fetchSelectedProduct } from "../../Store/fetchingAction";
 import { useParams } from "react-router";
 import "./ItemPage.css";
 import ImageCatalog from "../../Components/ImageCatalog/ImageCatalog";
+import { addToCartAction } from "../../Store/CartAction";
+import { addToFavAction } from "../../Store/Fav/FavActions";
 
 function ItemPage() {
   //refetch data with the Product Id we have in the param
@@ -24,7 +26,13 @@ function ItemPage() {
     dispatch(fetchSelectedProduct(productId));
   }, []);
 
-  console.log(selectedProduct);
+  function addToCartHandler() {
+    dispatch(addToCartAction(selectedProduct));
+  }
+  function addToFavtHandler() {
+    dispatch(addToFavAction(selectedProduct));
+  }
+
   return (
     <Container className=" d-md-flex flex-column m-4">
       <div className="d-flex  flex-md-row flex-column align-items-center  m-4">
@@ -40,10 +48,14 @@ function ItemPage() {
             <span>Rate:</span> {selectedProduct.rating}{" "}
           </p>
           <div className="actions">
-            <Button className="m-1" disabled={availInStock}>
+            <Button
+              className="m-1"
+              disabled={availInStock}
+              onClick={addToCartHandler}
+            >
               Add to Cart <Cart />
             </Button>
-            <Button className="m-1">
+            <Button className="m-1" onClick={addToFavtHandler}>
               Add to favorite <Fav1 />
             </Button>
           </div>
