@@ -13,7 +13,7 @@ export const addToFavAction = (addedItem) => {
     const user = auth.currentUser;
     const db = getDatabase();
     let existingItems;
-    console.log(user);
+
     //first check if the user is logged in.
     if (!user) {
       dispatch(setIsAdded(true));
