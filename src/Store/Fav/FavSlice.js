@@ -11,9 +11,12 @@ const favSlice = createSlice({
     getFavItems(state, action) {
       state.favItems = action.payload;
     },
+    resetFav(state) {
+      state.favItems = [];
+    },
   },
 });
 
-export const { getFavItems } = favSlice.actions;
+export const { getFavItems, resetFav } = favSlice.actions;
 
 export default favSlice.reducer;

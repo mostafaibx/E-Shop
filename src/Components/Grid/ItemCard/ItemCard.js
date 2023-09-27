@@ -19,7 +19,6 @@ function ItemCard(props) {
   const [favorited, setFavorited] = useState(false);
 
   const inFav = Object.values(favs).some((item) => item?.id === props.item.id);
-
   useEffect(() => {
     dispatch(getFavItemsAction());
   }, [favorited]);

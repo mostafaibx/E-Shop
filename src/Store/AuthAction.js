@@ -12,7 +12,9 @@ import { setCurrentUser, setIsLogin } from "./AuthSlice";
 import { setnotification } from "./notificationsSlice";
 import { setError, setIsLoading } from "./Loading-ErrorSlice";
 import { redirect } from "react-router-dom";
-import { setIsAdded } from "./CartSlice";
+import { resetCart, setIsAdded } from "./CartSlice";
+import { logoutReducer } from "./reducers";
+import { resetFav } from "./Fav/FavSlice";
 
 export const signupAction = (signupCred) => {
   return async (dispatch) => {
@@ -148,6 +150,8 @@ export const logoutAction = () => {
         })
       );
       dispatch(setIsLoading(false));
+      dispatch(resetCart());
+      dispatch(resetFav());
       redirect("/");
     }
   };

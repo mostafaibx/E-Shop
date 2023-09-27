@@ -15,9 +15,12 @@ const cartSlice = createSlice({
     setIsAdded(state, action) {
       state.isAdded = action.payload;
     },
+    resetCart(state) {
+      state.cartItems = [];
+    },
   },
 });
 
-export const { getCartItems, setIsAdded } = cartSlice.actions;
+export const { getCartItems, setIsAdded, resetCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
