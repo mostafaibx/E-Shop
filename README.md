@@ -33,4 +33,4 @@ Here's a brief overview of the project structure:
   - `App.js`: The main application component.
 - `public/` contains static assets and the HTML entry point.
 
-### For Live Preview: 
+### For Live Preview: https://e-shop-ou3u7jahn-mostafaibx.vercel.app/
