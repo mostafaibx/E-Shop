@@ -19,7 +19,7 @@ function Shop(props) {
   }, []);
 
   return (
-    <Container>
+    <Container className="d-flex flex-column justify-content-center">
       <Search />
       <Categories />
       <Row>
@@ -32,7 +32,7 @@ function Shop(props) {
               md={6}
               sm={6}
               xs={12}
-              className="mt-4 "
+              className="mt-4 d-flex justify-content-center"
             >
               <ItemCard id={item.id} item={item} />
             </Col>
